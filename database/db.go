@@ -1,15 +1,16 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 
-	_ "github.com/lib/pq"
+	"github.com/fydhfzh/fp-4/entity"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var (
-	db *sql.DB
+	db *gorm.DB
 	err error
 )
 
@@ -19,7 +20,7 @@ const (
 	password = "postgres"
 	dialect = "postgres"
 	host = "localhost"
-	dbname = "todo"
+	dbname = "toko_belanja"
 )
 
 func InitializedDatabase(){
@@ -30,20 +31,41 @@ func InitializedDatabase(){
 func handleDBConnection(){
 	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s port=%d dbname=%s sslmode=disable", host, user, password, port, dbname)
 
-
-	db, err = sql.Open(dialect, psqlInfo)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = db.Ping()
+	db, err = gorm.Open(postgres.Open(psqlInfo), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 func createRequiredTable(){
+	err := db.AutoMigrate(&entity.User{})
 
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = db.AutoMigrate(&entity.Category{})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = db.AutoMigrate(&entity.Product{})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = db.AutoMigrate(&entity.Transaction{})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func GetDatabaseInstance() *gorm.DB{
+	return db
 }

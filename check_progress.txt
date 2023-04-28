@@ -1,0 +1,53 @@
+Validation:
+    User:
+    - email \/
+    - full_name \/
+    - balance \/
+    - password \/
+    - role \/
+
+    Product:
+    - title \/
+    - stock \/
+    - price \/
+
+    Category:
+    - type \/
+
+    Transaction:
+    - quantity \/
+    - total_price \/
+
+Endpoint:
+    Users:
+    - POST /users/register \/
+    - POST /users/login \/
+    - PATCH /users/topup \/ [Autentikasi & Otorisasi Customer] \/
+
+    Categories:
+    - POST /categories \/ [Autentikasi & Otorisasi Admin] \/
+    - GET /categories \/ [Autentikasi & Otorisasi Customer] \/
+    - PATCH /categories/:categoryId \/ [Autentikasi & Otorisasi Admin] \/
+    - DELETE /categoires/:categoryId \/ [Autentikasi & Otorisasi Admin] \/
+
+    Products:
+    - POST /products \/ [Autentikasi & Otorisasi Admin] \/
+    - GET /products \/ [Autentikasi & Otorisasi Customer] \/
+    - PUT /products/:productId \/ [Autentikasi & Otorisasi Admin] \/
+    - DELETE /products/:productId \/ [Autentikasi & Otorisasi Admin] \/
+
+    Transactions:
+    - POST \/ /transaction [Autentikasi & Otorisasi Customer] \/
+    - GET \/ /transaction/my-transactions [Autentikasi & Otorisasi Customer] \/
+    - GET \/ /transaction/user-transactions [Autentikasi & Otorisasi Admin] \/
+
+Middleware:
+    - Authentication \/
+    - Authorization \/
+
+Konsultasi:
+    - Return slice of array dari repository pake pointer atau engga? soalnya kalo pake pointer harus di-dereference lagi kalo mau didapetin valuenya
+    - Apakah boleh service di-inject lebih dari satu repository? misalnya service transaction di-inject dengan repository product dan transaction
+    - Swagger kemarin tidak terlalu mengerti cara penggunaannya
+    - Testing nanti minimal berapa
+    
