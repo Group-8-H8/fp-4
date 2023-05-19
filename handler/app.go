@@ -78,7 +78,7 @@ func StartApp() {
 	docs.SwaggerInfo.Description = "Ini adalah server API Toko Belanja."
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = "fp-4-production.up.railway.app"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	docs.SwaggerInfo.Schemes = []string{"https", "http"}
 	
 	route.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
