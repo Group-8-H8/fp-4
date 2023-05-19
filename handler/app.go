@@ -82,5 +82,5 @@ func StartApp() {
 	
 	route.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	route.Run(port)
+	route.Run(":" + port)
 }
