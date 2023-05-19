@@ -15,9 +15,9 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-var PORT = os.Getenv("PORT")
-
 func StartApp() {
+	var PORT = os.Getenv("PORT")
+
 	database.InitializedDatabase()
 	db := database.GetDatabaseInstance()
 
