@@ -16,7 +16,7 @@ import (
 )
 
 func StartApp() {
-	var PORT = os.Getenv("PORT")
+	var port = os.Getenv("PORT")
 
 	database.InitializedDatabase()
 	db := database.GetDatabaseInstance()
@@ -82,5 +82,5 @@ func StartApp() {
 	
 	route.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	route.Run(PORT)
+	route.Run(port)
 }
