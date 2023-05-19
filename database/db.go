@@ -29,7 +29,7 @@ func InitializedDatabase(){
 }
 
 func handleDBConnection(){
-	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s sslmode=disable", host, user, password, port, dbname)
+	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s", host, user, password, port, dbname)
 
 	db, err = gorm.Open(postgres.Open(psqlInfo), &gorm.Config{})
 
