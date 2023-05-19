@@ -47,7 +47,7 @@ type GetProductResponse struct {
 	CreatedAt  time.Time `json:"created_at"`
 }
 
-type GetAllProductResponse struct {
+type GetAllProductsResponse struct {
 	Products []GetProductResponse
 	StatusCode int
 }

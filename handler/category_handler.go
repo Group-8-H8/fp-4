@@ -15,7 +15,7 @@ type categoryHandler struct {
 
 type CategoryHandler interface {
 	CreateCategory(c *gin.Context)
-	GetAllCategory(c *gin.Context)
+	GetAllCategories(c *gin.Context)
 	UpdateCategory(c *gin.Context)
 	DeleteCategory(c *gin.Context)
 }
@@ -26,6 +26,19 @@ func NewCategoryHandler(categoryService service.CategoryService) CategoryHandler
 	}
 }
 
+// CreateCategory godoc
+// @Summary Create new category
+// @Description Parse request body and add new category data in the database
+// @Tags category
+// @Accept json
+// @Produce json
+// @Param RequestBody body dto.CategoryRequest true "Request body json"
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 201 {object} dto.CreateCategoryResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /categories [post]
 func (ch *categoryHandler) CreateCategory(c *gin.Context) {
 	var categoryPayload dto.CategoryRequest
 
@@ -46,17 +59,41 @@ func (ch *categoryHandler) CreateCategory(c *gin.Context) {
 	c.JSON(response.StatusCode, response)
 }
 
-func (ch *categoryHandler) GetAllCategory(c *gin.Context) {
-	response, err := ch.categoryService.GetAllCategory()
+// GetAllCategories godoc
+// @Summary Get all categories
+// @Description Get all categories and products related existing in database
+// @Tags category
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 200 {array} dto.GetAllCategoriesResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /categories [get]
+func (ch *categoryHandler) GetAllCategories(c *gin.Context) {
+	response, err := ch.categoryService.GetAllCategories()
 
 	if err != nil {
 		c.JSON(err.Status(), err)
 		return
 	}
 
-	c.JSON(response[0].StatusCode, response)
+	c.JSON(response.StatusCode, response.Categories)
 }
 
+// UpdateCategory godoc
+// @Summary Update category
+// @Description Update category by id in url param
+// @Tags category
+// @Accept json
+// @Produce json
+// @Param categoryID path int true "Category ID"
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 200 {object} dto.PatchCategoryResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /categories/{categoryID} [patch]
 func (ch *categoryHandler) UpdateCategory(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("categoryId"))
 
@@ -86,6 +123,18 @@ func (ch *categoryHandler) UpdateCategory(c *gin.Context) {
 	c.JSON(response.StatusCode, response)
 }
 
+// DeleteCategory godoc
+// @Summary Delete category
+// @Description Delete category by id in url param
+// @Tags category
+// @Produce json
+// @Param categoryID  path int true "Category ID"
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 200 {object} dto.DeleteCategoryResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /categories/{categoryID} [delete]
 func (ch *categoryHandler) DeleteCategory(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("categoryId"))
 

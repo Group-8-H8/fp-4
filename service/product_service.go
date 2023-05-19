@@ -18,7 +18,7 @@ type productService struct {
 // Product service interface
 type ProductService interface {
 	CreateProduct(productPayload dto.CreateProductRequest) (*dto.CreateProductResponse, errs.Errs) 
-	GetAllProducts() (*dto.GetAllProductResponse, errs.Errs) 
+	GetAllProducts() (*dto.GetAllProductsResponse, errs.Errs) 
 	UpdateProduct(productId int, productPayload dto.PutProductRequest) (*dto.PutProductResponse, errs.Errs)
 	DeleteProduct(productId int) (*dto.DeleteProductResponse, errs.Errs)
 }
@@ -68,7 +68,7 @@ func (p *productService) CreateProduct(productPayload dto.CreateProductRequest) 
 }
 
 // Get all products service
-func (p *productService) GetAllProducts() (*dto.GetAllProductResponse, errs.Errs) {
+func (p *productService) GetAllProducts() (*dto.GetAllProductsResponse, errs.Errs) {
 	// Get all products
 	products, err := p.productRepo.GetAllProducts()
 
@@ -77,7 +77,7 @@ func (p *productService) GetAllProducts() (*dto.GetAllProductResponse, errs.Errs
 	}
 
 	// Create get all products response
-	var productsResponse dto.GetAllProductResponse
+	var productsResponse dto.GetAllProductsResponse
 	
 	for _, product := range products {
 		productResponse := dto.GetProductResponse{

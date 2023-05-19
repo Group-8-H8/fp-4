@@ -1,0 +1,761 @@
+basePath: /
+definitions:
+  dto.CategoryRequest:
+    properties:
+      type:
+        type: string
+    type: object
+  dto.CreateCategoryResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      sold_product_amount:
+        type: integer
+      type:
+        type: string
+    type: object
+  dto.CreateProductRequest:
+    properties:
+      category_id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+    type: object
+  dto.CreateProductResponse:
+    properties:
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+    type: object
+  dto.CreateTransactionRequest:
+    properties:
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    type: object
+  dto.CreateTransactionResponse:
+    properties:
+      message:
+        type: string
+      transaction_bill:
+        $ref: '#/definitions/dto.TransactionBill'
+    type: object
+  dto.DeleteCategoryResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.DeleteProductResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.GetAllCategoriesResponse:
+    properties:
+      categories:
+        items:
+          $ref: '#/definitions/dto.GetCategoryResponse'
+        type: array
+    type: object
+  dto.GetAllProductsResponse:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/dto.GetProductResponse'
+        type: array
+      statusCode:
+        type: integer
+    type: object
+  dto.GetCategoryResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      products:
+        items:
+          $ref: '#/definitions/dto.ProductResponseWithoutCategoryId'
+        type: array
+      sold_product_amount:
+        type: integer
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dto.GetMyTransactionsResponse:
+    properties:
+      transactions:
+        items:
+          $ref: '#/definitions/dto.GetTransactionResponse'
+        type: array
+    type: object
+  dto.GetProductResponse:
+    properties:
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+    type: object
+  dto.GetTransactionResponse:
+    properties:
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/dto.ProductResponseWithUpdatedAt'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      total_price:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  dto.GetTransactionResponseWithUser:
+    properties:
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/dto.ProductResponseWithUpdatedAt'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      total_price:
+        type: integer
+      user:
+        $ref: '#/definitions/dto.UserResponse'
+      user_id:
+        type: integer
+    type: object
+  dto.GetUsersTransactionsResponse:
+    properties:
+      transactions:
+        items:
+          $ref: '#/definitions/dto.GetTransactionResponseWithUser'
+        type: array
+    type: object
+  dto.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  dto.PatchCategoryResponse:
+    properties:
+      id:
+        type: integer
+      sold_product_amount:
+        type: integer
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dto.ProductResponseWithUpdatedAt:
+    properties:
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dto.ProductResponseWithoutCategoryId:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      stock:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dto.PutProductResponse:
+    properties:
+      product:
+        $ref: '#/definitions/dto.ProductResponseWithUpdatedAt'
+    type: object
+  dto.RegisterRequest:
+    properties:
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+    type: object
+  dto.RegisterResponse:
+    properties:
+      balance:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+    type: object
+  dto.TopUpRequest:
+    properties:
+      balance:
+        type: integer
+    type: object
+  dto.TopUpResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.TransactionBill:
+    properties:
+      product_title:
+        type: string
+      quantity:
+        type: integer
+      total_price:
+        type: integer
+    type: object
+  dto.UserResponse:
+    properties:
+      balance:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: fayyadhhafizh5@gmail.com
+    name: Fayyadh Hafizh
+  description: This is a online supermarket application.
+  title: Toko Belanja
+  version: "1.0"
+paths:
+  /categories:
+    get:
+      description: Get all categories and products related existing in database
+      parameters:
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.GetAllCategoriesResponse'
+            type: array
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get all categories
+      tags:
+      - category
+    post:
+      consumes:
+      - application/json
+      description: Parse request body and add new category data in the database
+      parameters:
+      - description: Request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CategoryRequest'
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreateCategoryResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create new category
+      tags:
+      - category
+  /categories/{categoryID}:
+    delete:
+      description: Delete category by id in url param
+      parameters:
+      - description: Category ID
+        in: path
+        name: categoryID
+        required: true
+        type: integer
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.DeleteCategoryResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Delete category
+      tags:
+      - category
+    patch:
+      consumes:
+      - application/json
+      description: Update category by id in url param
+      parameters:
+      - description: Category ID
+        in: path
+        name: categoryID
+        required: true
+        type: integer
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PatchCategoryResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Update category
+      tags:
+      - category
+  /my-transactions:
+    get:
+      description: Get transaction by user id in url param
+      parameters:
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.GetMyTransactionsResponse'
+            type: array
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get logged user transactions
+      tags:
+      - transaction
+  /products:
+    get:
+      description: Get all products existing in database
+      parameters:
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.GetAllProductsResponse'
+            type: array
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get all products
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: Parse request body and add new product data in the database
+      parameters:
+      - description: Request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateProductRequest'
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreateProductResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create new product
+      tags:
+      - product
+  /products/{productID}:
+    delete:
+      description: Delete product by id in url param
+      parameters:
+      - description: Product ID
+        in: path
+        name: productID
+        required: true
+        type: integer
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.DeleteProductResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Delete product
+      tags:
+      - product
+    patch:
+      consumes:
+      - application/json
+      description: Update product by id in url param
+      parameters:
+      - description: Product ID
+        in: path
+        name: productID
+        required: true
+        type: integer
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PutProductResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Update product
+      tags:
+      - product
+  /transactions:
+    post:
+      consumes:
+      - application/json
+      description: Parse request body and add new transaction data in the database
+      parameters:
+      - description: Request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateTransactionRequest'
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CreateTransactionResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create new transaction
+      tags:
+      - transaction
+  /user-transactions:
+    get:
+      description: Get transactions by all users
+      parameters:
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.GetUsersTransactionsResponse'
+            type: array
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Get all users transactions
+      tags:
+      - transaction
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Parse request body and check if user exist before create json web
+        token for auth
+      parameters:
+      - description: Request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.LoginResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Login using created account
+      tags:
+      - user
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Parse request body and add new user data in the database
+      parameters:
+      - description: Request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.RegisterResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create new account
+      tags:
+      - user
+  /users/topup:
+    post:
+      consumes:
+      - application/json
+      description: Parse request body and update user balance data in the database
+      parameters:
+      - description: Request body json
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TopUpRequest'
+      - default: Bearer <Add your access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.TopUpResponse'
+        "404":
+          description: Not Found
+          schema: {}
+        "422":
+          description: Unprocessable Entity
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Top up balance on logged account
+      tags:
+      - user
+swagger: "2.0"

@@ -41,3 +41,8 @@ type GetCategoryResponse struct {
 	StatusCode int `json:"-"`
 }
 
+type GetAllCategoriesResponse struct {
+	Categories []GetCategoryResponse
+	StatusCode int `json:"-"`
+}
+

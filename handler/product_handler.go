@@ -26,6 +26,19 @@ func NewProductHandler(productService service.ProductService) ProductHandler {
 	}
 }
 
+// CreateProduct godoc
+// @Summary Create new product
+// @Description Parse request body and add new product data in the database
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param RequestBody body dto.CreateProductRequest true "Request body json"
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 201 {object} dto.CreateProductResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /products [post]
 func (p *productHandler) CreateProduct(c *gin.Context) {
 	var productPayload dto.CreateProductRequest
 
@@ -46,6 +59,17 @@ func (p *productHandler) CreateProduct(c *gin.Context) {
 	c.JSON(response.StatusCode, response)
 }
 
+// GetAllProducts godoc
+// @Summary Get all products
+// @Description Get all products existing in database
+// @Tags product
+// @Produce json
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 200 {array} dto.GetAllProductsResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /products [get]
 func (p *productHandler) GetAllProducts(c *gin.Context) {
 	response, err := p.productService.GetAllProducts()
 
@@ -57,6 +81,19 @@ func (p *productHandler) GetAllProducts(c *gin.Context) {
 	c.JSON(response.StatusCode, response.Products)
 }
 
+// UpdateProduct godoc
+// @Summary Update product
+// @Description Update product by id in url param
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param productID  path int true "Product ID"
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 200 {object} dto.PutProductResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /products/{productID} [patch]
 func (p *productHandler) UpdateProduct(c *gin.Context) {
 	productId, err := strconv.Atoi(c.Param("productId"))
 
@@ -85,6 +122,18 @@ func (p *productHandler) UpdateProduct(c *gin.Context) {
 	c.JSON(response.StatusCode, response)
 }
 
+// DeleteProduct godoc
+// @Summary Delete product
+// @Description Delete product by id in url param
+// @Tags product
+// @Produce json
+// @Param productID path int true "Product ID"
+// @Param Authorization header string true "Insert your access token" default(Bearer <Add your access token here>)
+// @Success 200 {object} dto.DeleteProductResponse
+// @Failure 404 {object} errs.Errs
+// @Failure 500 {object} errs.Errs
+// @Failure 422 {object} errs.Errs
+// @Router /products/{productID} [delete]
 func (p *productHandler) DeleteProduct(c *gin.Context) {
 	productId, err := strconv.Atoi(c.Param("productId"))
 

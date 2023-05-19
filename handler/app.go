@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"os"
+
 	"github.com/fydhfzh/fp-4/database"
 	"github.com/fydhfzh/fp-4/repository/category_repository/category_pg"
 	"github.com/fydhfzh/fp-4/repository/product_repository/product_pg"
@@ -8,9 +10,11 @@ import (
 	"github.com/fydhfzh/fp-4/repository/user_repository/user_pg"
 	"github.com/fydhfzh/fp-4/service"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-const PORT = ":3000"
+var PORT = os.Getenv("PORT")
 
 func StartApp() {
 	database.InitializedDatabase()
@@ -47,7 +51,7 @@ func StartApp() {
 	{
 		categoryRoute.Use(authService.Authentication(), authService.AdminAuthorization())
 		categoryRoute.POST("/", categoryHandler.CreateCategory)
-		categoryRoute.GET("/", categoryHandler.GetAllCategory)
+		categoryRoute.GET("/", categoryHandler.GetAllCategories)
 		categoryRoute.PATCH("/:categoryId", categoryHandler.UpdateCategory)
 		categoryRoute.DELETE("/:categoryId", categoryHandler.DeleteCategory)
 	}
@@ -68,6 +72,8 @@ func StartApp() {
 		transactionRoute.GET("/my-transactions", transactionHandler.GetMyTransactions)
 		transactionRoute.GET("/user-transactions", authService.AdminAuthorization(), transactionHandler.GetUsersTransactions)
 	}
+
+	route.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	route.Run(PORT)
 }

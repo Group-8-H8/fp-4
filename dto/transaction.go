@@ -41,7 +41,7 @@ type GetTransactionResponseWithUser struct {
 	User       UserResponse                 `json:"user"`
 }
 
-type GetUsersTransactionResponse struct {
+type GetUsersTransactionsResponse struct {
 	Transactions []GetTransactionResponseWithUser
 	StatusCode   int `json:"-"`
 }

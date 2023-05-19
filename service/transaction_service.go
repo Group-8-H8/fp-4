@@ -24,7 +24,7 @@ type transactionService struct {
 type TransactionService interface {
 	CreateTransaction(transactionPayload dto.CreateTransactionRequest, userID int) (*dto.CreateTransactionResponse, errs.Errs) 
 	GetMyTransaction(userID int) (*dto.GetMyTransactionsResponse, errs.Errs)
-	GetUsersTransactions() (*dto.GetUsersTransactionResponse, errs.Errs)
+	GetUsersTransactions() (*dto.GetUsersTransactionsResponse, errs.Errs)
 }
 
 // Transaction service generator function
@@ -172,14 +172,14 @@ func (t *transactionService) GetMyTransaction(userID int) (*dto.GetMyTransaction
 	return &response, nil
 }
 
-func (t *transactionService) GetUsersTransactions() (*dto.GetUsersTransactionResponse, errs.Errs) {
+func (t *transactionService) GetUsersTransactions() (*dto.GetUsersTransactionsResponse, errs.Errs) {
 	usersTransactions, err := t.transactionRepo.GetUsersTransactions()
 
 	if err != nil {
 		return nil, err
 	}
 
-	var transactionsResponse dto.GetUsersTransactionResponse
+	var transactionsResponse dto.GetUsersTransactionsResponse
 
 	for _, tx := range usersTransactions {
 		product := dto.ProductResponseWithUpdatedAt{

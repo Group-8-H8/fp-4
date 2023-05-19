@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/fydhfzh/fp-4/entity"
 	"gorm.io/driver/postgres"
@@ -14,13 +15,12 @@ var (
 	err error
 )
 
-const (
-	port = 5432
-	user = "admin"
-	password = "postgres"
-	dialect = "postgres"
-	host = "localhost"
-	dbname = "toko_belanja"
+var (
+	port = os.Getenv("PG_PORT")
+	user = os.Getenv("PG_USER")
+	password = os.Getenv("PG_PASSWORD")
+	host = os.Getenv("PG_HOST")
+	dbname = os.Getenv("PG_DBNAME")
 )
 
 func InitializedDatabase(){
@@ -29,7 +29,7 @@ func InitializedDatabase(){
 }
 
 func handleDBConnection(){
-	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s port=%d dbname=%s sslmode=disable", host, user, password, port, dbname)
+	psqlInfo := fmt.Sprintf("host=%s user=%s password=%s port=%s dbname=%s sslmode=disable", host, user, password, port, dbname)
 
 	db, err = gorm.Open(postgres.Open(psqlInfo), &gorm.Config{})
 

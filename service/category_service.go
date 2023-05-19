@@ -18,7 +18,7 @@ type categoryService struct {
 // Category service interface
 type CategoryService interface {
 	CreateCategory(categoryPayload dto.CategoryRequest) (*dto.CreateCategoryResponse, errs.Errs)
-	GetAllCategory() ([]dto.GetCategoryResponse, errs.Errs)
+	GetAllCategories() (*dto.GetAllCategoriesResponse, errs.Errs)
 	UpdateCategory(categoryId int, categoryPayload dto.PatchCategoryRequest) (*dto.PatchCategoryResponse, errs.Errs)
 	DeleteCategory(categoryId int) (*dto.DeleteCategoryResponse, errs.Errs)
 }
@@ -59,7 +59,7 @@ func (c *categoryService) CreateCategory(categoryPayload dto.CategoryRequest) (*
 }
 
 // Get all category service
-func (c *categoryService) GetAllCategory() ([]dto.GetCategoryResponse, errs.Errs) {
+func (c *categoryService) GetAllCategories() (*dto.GetAllCategoriesResponse, errs.Errs) {
 	// Get all categories
 	categories, products, err := c.categoryRepo.GetAllCategories()
 
@@ -102,7 +102,12 @@ func (c *categoryService) GetAllCategory() ([]dto.GetCategoryResponse, errs.Errs
 		categoriesResponse = append(categoriesResponse, categoryResponse)
 	}
 
-	return categoriesResponse, nil
+	response := dto.GetAllCategoriesResponse{
+		Categories: categoriesResponse,
+		StatusCode: http.StatusOK,
+	}
+
+	return &response, nil
 }
 
 // Update category service
