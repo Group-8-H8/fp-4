@@ -722,7 +722,7 @@ paths:
       tags:
       - user
   /users/topup:
-    post:
+    patch:
       consumes:
       - application/json
       description: Parse request body and update user balance data in the database

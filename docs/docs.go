@@ -648,7 +648,7 @@ const docTemplate = `{
             }
         },
         "/users/topup": {
-            "post": {
+            "patch": {
                 "description": "Parse request body and update user balance data in the database",
                 "consumes": [
                     "application/json"
