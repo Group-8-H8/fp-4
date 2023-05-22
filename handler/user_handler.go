@@ -70,7 +70,7 @@ func (u *userHandler) Register(c *gin.Context) {
 // @Failure 404 {object} errs.Errs
 // @Failure 500 {object} errs.Errs
 // @Failure 422 {object} errs.Errs
-// @Router /users/topup [post]
+// @Router /users/topup [patch]
 func (u *userHandler) TopUp(c *gin.Context) {
 	user := c.MustGet("userData").(*entity.User)
 
