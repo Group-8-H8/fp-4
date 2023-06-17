@@ -1,4 +1,4 @@
-# Final Project 3 (Toko Belanja) - Group 8
+# Final Project 4 (Toko Belanja v1.0.0) - Group 8
 
 ### API Specs
 
