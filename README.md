@@ -12,3 +12,12 @@ https://fp-4-production.up.railway.app/swagger/index.html
 
 - email `admin@gmail.com`
 - password `adminkeren`
+
+#### E.G. Body Request
+
+```json
+{
+	"email": "admin@gmail.com",
+	"password": "adminkeren"
+}
+```
