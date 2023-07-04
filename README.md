@@ -7,3 +7,8 @@ See more detail of api specification in [here](https://fp-4-production.up.railwa
 ### Main URI
 
 https://fp-4-production.up.railway.app/swagger/index.html
+
+### Admin Account
+
+- email `admin@gmail.com`
+- password `adminkeren`
