@@ -73,13 +73,13 @@ func StartApp() {
 		transactionRoute.GET("/my-transactions", transactionHandler.GetMyTransactions)
 		transactionRoute.GET("/user-transactions", authService.AdminAuthorization(), transactionHandler.GetUsersTransactions)
 	}
-	
+
 	docs.SwaggerInfo.Title = "API Toko Belanja"
 	docs.SwaggerInfo.Description = "Ini adalah server API Toko Belanja."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "fp-4-production.up.railway.app"
+	docs.SwaggerInfo.Host = "fp-4-production-e413.up.railway.app"
 	docs.SwaggerInfo.Schemes = []string{"https", "http"}
-	
+
 	route.GET("swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	route.Run(":" + port)

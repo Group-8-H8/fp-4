@@ -1,16 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a online supermarket application.",
-        "title": "Toko Belanja",
-        "contact": {
-            "name": "Fayyadh Hafizh",
-            "email": "fayyadhhafizh5@gmail.com"
-        },
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "localhost:3000",
-    "basePath": "/",
     "paths": {
         "/categories": {
             "get": {
